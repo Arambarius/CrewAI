@@ -109,3 +109,17 @@ LLM 제공사가 각자 다른 역할을 맡아 실제로 협업하는 형태).
   게이트)을 고려할 것.
 - 무료 티어 리소스 제한으로 계층적 협업(매니저의 중재 호출까지 포함)이
   느리거나 타임아웃될 수 있음.
+
+### 2026-09-19 (4차) — 배포 후 발견된 crewai 버전 이슈 수정
+
+**증상**: Streamlit Cloud에서 실행 시
+`ImportError: Anthropic native provider not available` 발생.
+
+**원인**: `requirements.txt`에 `crewai>=0.86.0`으로만 지정해서, 실제로는
+최신 버전(1.15.x대)이 설치됨. 이 버전부터 crewai가 provider별
+"네이티브 클라이언트" 구조로 바뀌었고, Anthropic/Gemini는 각각
+`anthropic`, `google-genai` extra를 명시적으로 설치해야 동작함
+(OpenAI는 `openai` 패키지가 기본 의존성이라 추가 설치 없이 동작).
+
+**수정**: `requirements.txt`를
+`crewai[anthropic,google-genai]>=0.86.0`로 변경.
