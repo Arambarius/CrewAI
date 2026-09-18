@@ -1,0 +1,33 @@
+literature_review_task:
+  description: >
+    다음 연구 주제에 대해 관련 문헌을 조사하라: {topic}
+    - 최근 5년 이내 핵심 논문 위주로 정리
+    - 각 논문의 방법론, 데이터셋, 주요 결과를 1~2문장으로 요약
+    - 사용자의 연구({research_context})와 겹치는 부분과 차별화되는 부분을 구분
+  expected_output: >
+    논문별 요약 목록(제목, 저자/연도, 방법론, 핵심 결과, 관련성)과
+    전체를 종합한 짧은 총평.
+  agent: literature_reviewer
+
+data_analysis_task:
+  description: >
+    다음 데이터에 대해 분석을 수행하라: {data_description}
+    - 기본 통계량(평균, 표준편차, 추세) 산출
+    - 물리적으로 이상한 값(부호, 범위, 계절성 위배 등)이 있으면 명시
+    - 필요한 경우 재분석/재계산 절차를 제안
+  expected_output: >
+    표 또는 목록 형태의 통계 요약과, 발견된 이상 패턴에 대한 설명.
+  agent: data_analyst
+
+synthesis_task:
+  description: >
+    literature_review_task와 data_analysis_task의 결과를 통합하여
+    연구 질문 "{research_question}"에 대한 답을 작성하라.
+    - 근거 없는 주장 금지, 각 결론에 대응하는 근거 명시
+    - 다음 단계(추가 분석, 확인이 필요한 문헌)를 구체적으로 제안
+  expected_output: >
+    간결한 학술 문체의 종합 보고서 (결론 - 근거 - 다음 단계 순).
+  agent: report_writer
+  context:
+    - literature_review_task
+    - data_analysis_task

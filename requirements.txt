@@ -1,0 +1,6 @@
+crewai>=0.86.0
+crewai-tools>=0.25.0
+pandas>=2.2.0
+xarray>=2024.6.0
+netCDF4>=1.7.0
+python-dotenv>=1.0.0
